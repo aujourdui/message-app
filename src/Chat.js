@@ -14,7 +14,11 @@ const Chat = () => {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
 
-  const sendMessage = (e) => {};
+  const sendMessage = (e) => {
+    e.preventDefault();
+    console.log("You typed >>> ", input);
+    setInput("");
+  };
 
   return (
     <div className="chat">
