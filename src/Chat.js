@@ -3,6 +3,8 @@ import "./Chat.css";
 
 import { Avatar, IconButton } from "@material-ui/core";
 import { SearchOutlined, AttachFile, MoreVert } from "@material-ui/icons";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import MicIcon from "@material-ui/icons/Mic";
 
 const Chat = () => {
   const [seed, setSeed] = useState("");
@@ -34,12 +36,20 @@ const Chat = () => {
         </div>
       </div>
       <div className="chat__body">
-        <p className="chat__message">
+        <p className={`chat__message ${true && "chat__receiver"}`}>
           <span className="chat__name">Kyosuke Ito</span>
           Hey guys
+          <span className="chat__timestamp">2:30pm</span>
         </p>
       </div>
-      <div className="chat__footer"></div>
+      <div className="chat__footer">
+        <InsertEmoticonIcon />
+        <form>
+          <input type="text" />
+          <button>Send a message</button>
+        </form>
+        <MicIcon />
+      </div>
     </div>
   );
 };
