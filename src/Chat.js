@@ -7,6 +7,8 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
 import { useParams } from "react-router-dom";
 import db from "./firebase";
+import firebase from "firebase";
+import { useStateValue } from "./StateProvider";
 
 const Chat = () => {
   const [input, setInput] = useState("");
@@ -14,6 +16,7 @@ const Chat = () => {
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     if (roomId) {
@@ -38,6 +41,12 @@ const Chat = () => {
   const sendMessage = (e) => {
     e.preventDefault();
     console.log("You typed >>> ", input);
+
+    db.collection("rooms").doc(roomId).collection("messages").add({
+      message: input,
+      name: user.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
     setInput("");
   };
 
